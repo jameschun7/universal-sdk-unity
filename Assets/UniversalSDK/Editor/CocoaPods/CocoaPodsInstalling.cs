@@ -19,7 +19,7 @@ namespace Universal.UniversalSDK.Editor
                 return;
             }
 
-            if (!PubSDKSettings.GetOrCreateSettings().UseCocoaPods)
+            if (!UniversalSDKSettings.GetOrCreateSettings().UseCocoaPods)
             {
                 return;
             }
@@ -30,7 +30,7 @@ namespace Universal.UniversalSDK.Editor
             var podExisting = ShellCommand.Run("which", "pod");
             if (string.IsNullOrEmpty(podExisting))
             {
-                var text = @"Gamepub SDK integrating failed. Building Gamepub SDK for iOS target requires CocoaPods, but it is not installed. Please run ""sudo gem install cocoapods"" and try again.";
+                var text = @"Universal SDK integrating failed. Building Universal SDK for iOS target requires CocoaPods, but it is not installed. Please run ""sudo gem install cocoapods"" and try again.";
                 UnityEngine.Debug.LogError(text);
                 var clicked = EditorUtility.DisplayDialog("CocoaPods not found", text, "More", "Cancel");
                 if (clicked)
@@ -44,12 +44,12 @@ namespace Universal.UniversalSDK.Editor
             var podFileLocation = Path.Combine(pathToBuiltProject, "Podfile");
             if (File.Exists(podFileLocation))
             {
-                var text = @"A Podfile is already existing under Xcode project root. Skipping copying of Gamepub SDK's Podfile. Make sure you have setup Podfile correctly if you are using another package also requires CocoaPods.";
+                var text = @"A Podfile is already existing under Xcode project root. Skipping copying of Universal SDK's Podfile. Make sure you have setup Podfile correctly if you are using another package also requires CocoaPods.";
                 UnityEngine.Debug.Log(text);
             }
             else
             {
-                var bundledPodfile = "Assets/GamePubSDK/Editor/CocoaPods/Podfile_2019_4";
+                var bundledPodfile = "Assets/UniversalSDK/Editor/CocoaPods/Podfile_2019_4";
 
                 var podfilePath = Path.Combine(currentDirectory, bundledPodfile);
                 UnityEngine.Debug.Log(podfilePath);

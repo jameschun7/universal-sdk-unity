@@ -169,6 +169,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
     Android: com.universal.android.sample
+    iPhone: com.gamepub.ios.testapp
   buildNumber: {}
   AndroidBundleVersionCode: 3
   AndroidMinSdkVersion: 19

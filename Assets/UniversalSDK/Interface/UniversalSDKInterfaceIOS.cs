@@ -7,94 +7,91 @@ using System.Runtime.InteropServices;
 using AOT;
 using System.Reflection;
 
-namespace GamePub.PubSDK
+namespace Universal.UniversalSDK
 {
     public class NativeInterface
     {
         static NativeInterface()
         {
-            var _ = GamePubSDK.Ins;
+            var _ = UniversalSDK.Ins;
         }
 
         [DllImport("__Internal")]
-        private static extern void pub_sdk_setup(string identifier);
-        public static void SetupSDK(string identifier)
+        private static extern void universal_sdk_setup(string identifier,
+                                                       string list);
+        public static void SetupSDK(string identifier,
+                                    string list)
         {
+            Debug.Log(list);
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(null)) { return; }
-
-            pub_sdk_setup(identifier);
+            
+            universal_sdk_setup(identifier, list);
         }
 
         [DllImport("__Internal")]
-        private static extern void pub_sdk_login(string identifier,
-                                                 int loginType,
-                                                 int serviceType);
+        private static extern void universal_sdk_login(string identifier,
+                                                       int loginType,
+                                                       int serviceType);
         public static void Login(string identifier,
-                                 PubLoginType loginType,
-                                 PubAccountServiceType serviceType)
+                                 LoginType loginType,
+                                 AccountServiceType serviceType)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            pub_sdk_login(identifier, (int)loginType, (int)serviceType);
+            universal_sdk_login(identifier, (int)loginType, (int)serviceType);
         }
 
         [DllImport("__Internal")]
-        private static extern void pub_sdk_logout(string identifier, int loginType);
-        public static void Logout(string identifier, PubLoginType loginType)
+        private static extern void universal_sdk_logout(string identifier,
+                                                        int loginType);
+        public static void Logout(string identifier, LoginType loginType)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            pub_sdk_logout(identifier, (int)loginType);
+            universal_sdk_logout(identifier, (int)loginType);
         }
 
         [DllImport("__Internal")]
-        private static extern void pub_sdk_inAppPurchase(string identifier,
-                                                         string pid,
-                                                         string serverId,
-                                                         string playerId,
-                                                         string etc);
+        private static extern void universal_sdk_inAppPurchase(string identifier,
+                                                               string pid);
         public static void InAppPurchase(string identifier,
-                                         string pid,
-                                         string serverId,
-                                         string playerId,
-                                         string etc)
+                                         string pid)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            pub_sdk_inAppPurchase(identifier, pid, serverId, playerId, etc);
-        }
-        
+            universal_sdk_inAppPurchase(identifier, pid);
+        }        
 
         [DllImport("__Internal")]
-        private static extern void pub_sdk_imageBanner(string identifier,
-                                                       string ratioWidth,
-                                                       string ratioHeight);
-        public static void ImageBanner(string identifier, string ratioWidth, string ratioHeight)
+        private static extern void universal_sdk_imageBanner(string identifier,
+                                                             string ratioWidth,
+                                                             string ratioHeight,
+                                                             string imageUrl);
+        public static void ImageBanner(string identifier,
+                                       string ratioWidth,
+                                       string ratioHeight,
+                                       string imageUrl)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            pub_sdk_imageBanner(identifier, ratioWidth, ratioHeight);
-        }
-
-        
-
+            universal_sdk_imageBanner(identifier, ratioWidth, ratioHeight, imageUrl);
+        }        
         
         [DllImport("__Internal")]
-        private static extern void pub_sdk_openHelpURL(string identifier);
-        public static void OpenHelpURL(string identifier)
+        private static extern void universal_sdk_openSafariView(string identifier,
+                                                                string url);
+        public static void OpenCustomTabView(string identifier, string url)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            pub_sdk_openHelpURL(identifier);
-        }
-
-        
+            universal_sdk_openSafariView(identifier, url);
+        }        
 
         private static bool IsInvalidRuntime(string identifier)
         {
