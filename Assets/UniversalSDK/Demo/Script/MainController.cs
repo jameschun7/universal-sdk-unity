@@ -1,15 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using Universal.UniversalSDK;
 
 public class MainController : MonoBehaviour
 {
+#if UNITY_ANDROID    
+    string productID_1 = "boxer_unity1000";
+    string productID_2 = "boxer_unity2000";
+#elif UNITY_IOS    
+    string productID_1 = "com.gamepub.unity.inapp1200";
+    string productID_2 = "com.gamepub.unity.inapp2500";
+#endif
+
     public Image userImage;
     public Text displayNameText;
-    public Text uniqueIdText;
-    public Text channelIdText;
+    public Text uniqueIdText;    
     public Text emailText;
 
     public Text rawJsonText;
@@ -19,37 +28,20 @@ public class MainController : MonoBehaviour
 
     void Start()
     {
-        var scopes = new string[] { "boxer_unity1000", "boxer_unity2000" };
-
-        UniversalSDK.Ins.SetupSDK(scopes, result =>
-        {
-            result.Match(
-                value =>
-                {
-                    //Debug.Log("code = " + value.Code + ", msg = " + value.Msg);
-                    UpdateRawSection(value);
-                },
-                error =>
-                {
-                    //Debug.LogError("code = " + error.Code + ", msg = " + error.Message);
-                    UpdateRawSection(error);
-                });
-        });
+        LoginResult result = UserInfoManager.Instance.loginResult;
+        StartCoroutine(UpdateProfile(result.UserProfile));
+        UpdateRawSection(result);
     }
 
-    public void OnClickGoogleLogin()
+    public void OnLinkWithGoogle()
     {
         UniversalSDK.Ins.Login(LoginType.GOOGLE,
-            AccountServiceType.ACCOUNT_LOGIN, result =>
+            AccountServiceType.ACCOUNT_LINK, result =>
             {
                 result.Match(
                     value =>
                     {
                         UpdateRawSection(value);
-                        displayNameText.text = value.UserProfile.DisplayName;
-                        uniqueIdText.text = value.UserProfile.UniqueId;
-                        channelIdText.text = value.UserProfile.ChannelId;
-                        emailText.text = value.UserProfile.Email;
                     },
                     error =>
                     {
@@ -57,19 +49,16 @@ public class MainController : MonoBehaviour
                     });
             });
     }
-    public void OnClickFacebookLogin()
+
+    public void OnLinkWithFacebook()
     {
         UniversalSDK.Ins.Login(LoginType.FACEBOOK,
-            AccountServiceType.ACCOUNT_LOGIN, result =>
+            AccountServiceType.ACCOUNT_LINK, result =>
             {
                 result.Match(
                     value =>
                     {
                         UpdateRawSection(value);
-                        displayNameText.text = value.UserProfile.DisplayName;
-                        uniqueIdText.text = value.UserProfile.UniqueId;
-                        channelIdText.text = value.UserProfile.ChannelId;
-                        emailText.text = value.UserProfile.Email;
                     },
                     error =>
                     {
@@ -77,19 +66,16 @@ public class MainController : MonoBehaviour
                     });
             });
     }
-    public void OnClickGuestLogin()
+
+    public void OnUnlinkWithGoogle()
     {
-        UniversalSDK.Ins.Login(LoginType.GUEST,
-            AccountServiceType.ACCOUNT_LOGIN, result =>
+        UniversalSDK.Ins.Login(LoginType.GOOGLE,
+            AccountServiceType.ACCOUNT_UNLINK, result =>
             {
                 result.Match(
                     value =>
                     {
                         UpdateRawSection(value);
-                        displayNameText.text = value.UserProfile.DisplayName;
-                        uniqueIdText.text = value.UserProfile.UniqueId;
-                        channelIdText.text = value.UserProfile.ChannelId;
-                        emailText.text = value.UserProfile.Email;
                     },
                     error =>
                     {
@@ -97,19 +83,16 @@ public class MainController : MonoBehaviour
                     });
             });
     }
-    public void OnClickAppleLogin()
+
+    public void OnUnlinkWithFacebook()
     {
-        UniversalSDK.Ins.Login(LoginType.APPLE,
-            AccountServiceType.ACCOUNT_LOGIN, result =>
+        UniversalSDK.Ins.Login(LoginType.FACEBOOK,
+            AccountServiceType.ACCOUNT_UNLINK, result =>
             {
                 result.Match(
                     value =>
                     {
                         UpdateRawSection(value);
-                        displayNameText.text = value.UserProfile.DisplayName;
-                        uniqueIdText.text = value.UserProfile.UniqueId;
-                        channelIdText.text = value.UserProfile.ChannelId;
-                        emailText.text = value.UserProfile.Email;
                     },
                     error =>
                     {
@@ -117,6 +100,7 @@ public class MainController : MonoBehaviour
                     });
             });
     }
+
     public void OnClickLogout()
     {
         UniversalSDK.Ins.Logout(LoginType.GOOGLE, result =>
@@ -124,7 +108,7 @@ public class MainController : MonoBehaviour
             result.Match(
                 value =>
                 {
-                    UpdateRawSection(value);
+                    SceneManager.LoadSceneAsync("Login");
                 },
                 error =>
                 {
@@ -134,7 +118,7 @@ public class MainController : MonoBehaviour
     }
     public void OnClickInPurchase1200()
     {
-        UniversalSDK.Ins.InAppPurchase("boxer_unity1000", result =>
+        UniversalSDK.Ins.InAppPurchase(productID_1, result =>
         {
             result.Match(
                 value =>
@@ -149,7 +133,7 @@ public class MainController : MonoBehaviour
     }
     public void OnClickInPurchase2500()
     {
-        UniversalSDK.Ins.InAppPurchase("boxer_unity2000", result =>
+        UniversalSDK.Ins.InAppPurchase(productID_2, result =>
         {
             result.Match(
                 value =>
@@ -210,5 +194,34 @@ public class MainController : MonoBehaviour
         rawJsonText.text = text + "\n\n" + rawJsonText.text;
         var scrollContentTransform = (RectTransform)rawJsonText.gameObject.transform.parent;
         scrollContentTransform.localPosition = Vector3.zero;
+    }
+
+    IEnumerator UpdateProfile(UserProfile profile)
+    {
+        if (profile.PhotoURL != null)
+        {
+            var www = UnityWebRequestTexture.GetTexture(profile.PhotoURL);
+            yield return www.SendWebRequest();
+            if (www.isNetworkError || www.isHttpError)
+            {
+                Debug.LogError(www.error);
+            }
+            else
+            {
+                var texture = DownloadHandlerTexture.GetContent(www);
+                userImage.color = Color.white;
+                userImage.sprite = Sprite.Create(
+                    texture,
+                    new Rect(0, 0, texture.width, texture.height),
+                    new Vector2(0, 0));
+            }
+        }
+        else
+        {
+            yield return null;
+        }        
+        displayNameText.text = profile.DisplayName;
+        uniqueIdText.text = profile.UniqueId;
+        emailText.text = profile.Email;
     }
 }

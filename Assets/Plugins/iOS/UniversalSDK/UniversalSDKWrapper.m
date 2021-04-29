@@ -34,34 +34,40 @@
     self.setup = YES;
     
     [[UniversalApiClient getInstance] setupSDK:list
-                                    completion:^(NSString * _Nullable sdkResult,
+                                    completion:^(NSString * _Nullable result,
                                                  NSError * _Nullable error)
     {
-       if(error)
-       {
-           UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:[self wrapError:error]];
-       }else{
-           UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:sdkResult];
-           [payload sendMessageOK];
-       }
+        if(error)
+        {
+            UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:[self wrapError:error]];
+            [payload sendMessageError];
+        }else{
+            UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:result];
+            [payload sendMessageOK];
+        }
     }];
+    
+    [[WebviewController GetInstance] InitializeWithParentUIView:UnityGetGLViewController().view
+                                                    pubDelegate:nil];
 }
 
 - (void) login:(NSString *)identifier
           type:(int)loginType
    serviceType:(int)accountServiceType
 {
-    [[UniversalApiClient getInstance] login:loginType
-                                         vc:UnityGetGLViewController()
-                                 completion:^(NSString * _Nullable result, NSError * _Nullable error)
+    [[UniversalApiClient getInstance]login:loginType
+                               serviceType:accountServiceType
+                            viewController:UnityGetGLViewController()
+                                completion:^(NSString * _Nullable result, NSError * _Nullable error)
     {
         if(error){
             UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:[self wrapError:error]];
+            [payload sendMessageError];
         }else{
             UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:result];
             [payload sendMessageOK];
         }
-    }];
+    }];    
 }
 
 - (void) logout:(NSString *)identifier
@@ -72,6 +78,7 @@
     {
         if(error){
             UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:[self wrapError:error]];
+            [payload sendMessageError];
         }else{
             UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:result];
             [payload sendMessageOK];
@@ -87,6 +94,7 @@
     {
         if(error){
             UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:[self wrapError:error]];
+            [payload sendMessageError];
         }else{
             UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:result];
             [payload sendMessageOK];

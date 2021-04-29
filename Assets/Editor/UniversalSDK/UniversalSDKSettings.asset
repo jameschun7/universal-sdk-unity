@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: UniversalSDKSettings
   m_EditorClassIdentifier: 
   iOSDependencyManager: CocoaPods
-  facebookAppID: 
+  appleLogin: 1
+  facebookLogin: 1
+  facebookAppID: 2925534737733374

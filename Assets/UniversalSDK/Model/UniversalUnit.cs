@@ -9,9 +9,9 @@ namespace Universal.UniversalSDK
         [SerializeField]
         private int code = 0;
         [SerializeField]
-        private string msg = "";
+        private string message = "";
 
         public int Code { get { return code; } }
-        public string Msg { get { return msg; } }
+        public string Message { get { return message; } }
     }
 }

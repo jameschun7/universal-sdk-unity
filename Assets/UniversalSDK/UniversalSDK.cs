@@ -8,7 +8,6 @@ namespace Universal.UniversalSDK
     {
         static UniversalSDK instance;
 
-
         void Awake()
         {
             if (instance == null)

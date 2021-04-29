@@ -95,7 +95,7 @@ public class BuildMenu : ScriptableObject
     static void Buildmachine_iOS()
     {
         PlayerSettings.productName = "UnityDemo";
-        PrepareiOSBuild("");
+        PrepareiOSBuild("com.gamepub.ios.testapp");
 
         PerformiOSBuild(GetIOSOutputFile(), "", false);
     }
@@ -124,7 +124,7 @@ public class BuildMenu : ScriptableObject
         //PlayerSettings.bundleVersion = "";
         //PlayerSettings.iOS.buildNumber = "";
         PlayerSettings.iOS.appleEnableAutomaticSigning = true;
-        PlayerSettings.iOS.appleDeveloperTeamID = "";
+        PlayerSettings.iOS.appleDeveloperTeamID = "PRPC4C837N";
     }
 
     static string PerformAndroidBuild(string output, string define, bool isDev)

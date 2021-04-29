@@ -15,6 +15,7 @@ namespace Universal.UniversalSDK
         NONE,
         ACCOUNT_LOGIN,
         ACCOUNT_LINK,
+        ACCOUNT_UNLINK,
     }
 
     public enum ApiResponseCode

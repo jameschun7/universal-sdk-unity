@@ -15,6 +15,10 @@ namespace Universal.UniversalSDK.Editor
         [SerializeField]
         private string iOSDependencyManager;
         [SerializeField]
+        private bool appleLogin;
+        [SerializeField]
+        private bool facebookLogin;
+        [SerializeField]
         private string facebookAppID;
 
         internal static int DependencySelectedIndex(string selected)
@@ -24,6 +28,8 @@ namespace Universal.UniversalSDK.Editor
 
         internal bool UseCocoaPods { get { return iOSDependencyManager.Equals("CocoaPods"); } }
         internal string FacebookAppID { get { return facebookAppID; } }
+        internal bool UseAppleLogin { get { return appleLogin; } }
+        internal bool UseFacebookLogin { get { return facebookLogin; } }
 
         internal static UniversalSDKSettings GetOrCreateSettings()
         {
@@ -32,6 +38,8 @@ namespace Universal.UniversalSDK.Editor
             {
                 settings = ScriptableObject.CreateInstance<UniversalSDKSettings>();
                 settings.iOSDependencyManager = "CocoaPods";
+                settings.appleLogin = false;
+                settings.facebookLogin = false;
 
                 Directory.CreateDirectory("Assets/Editor/UniversalSDK/");
 
@@ -78,13 +86,33 @@ namespace Universal.UniversalSDK.Editor
             var property = settings.FindProperty("iOSDependencyManager");
             var selected = UniversalSDKSettings.DependencySelectedIndex(property.stringValue);
 
+            var propertyAppleLogin = settings.FindProperty("appleLogin");
+            var enableAppleLogin = propertyAppleLogin.boolValue;
+
+            var propertyFacebookLogin = settings.FindProperty("facebookLogin");
+            var enableFacebookLogin = propertyFacebookLogin.boolValue;
+
+            var propertyFacebookAppId = settings.FindProperty("facebookAppID");
+            var facebookAppId = propertyFacebookAppId.stringValue;
+
             selected = EditorGUILayout.Popup("iOS Dependency Manager", selected, UniversalSDKSettings.dependencyManagerOptions);
+            enableAppleLogin = EditorGUILayout.Toggle("Apple Login Enable", enableAppleLogin);
+
+            GUILayout.Space(20);
+            GUI.skin.label.fontSize = 17;
+            GUILayout.Label("Facebook", GUILayout.Width(200), GUILayout.Height(30));
+            enableFacebookLogin = EditorGUILayout.BeginToggleGroup("Facebook Login Enable", enableFacebookLogin);
+            facebookAppId = EditorGUILayout.TextField("Facebook App ID", facebookAppId);
+            EditorGUILayout.EndToggleGroup();
 
             if (selected < 0)
             {
                 selected = 0;
             }
             property.stringValue = UniversalSDKSettings.dependencyManagerOptions[selected];
+            propertyAppleLogin.boolValue = enableAppleLogin;
+            propertyFacebookLogin.boolValue = enableFacebookLogin;
+            propertyFacebookAppId.stringValue = facebookAppId;
 
             if (EditorGUI.EndChangeCheck())
             {

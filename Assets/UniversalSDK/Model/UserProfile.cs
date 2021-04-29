@@ -9,18 +9,18 @@ namespace Universal.UniversalSDK
         [SerializeField]
         private string uniqueId = "";
         [SerializeField]
-        private string displayName = "";
-        [SerializeField]
-        private string channelId = "";
+        private string displayName = "";        
         [SerializeField]
         private string email = "";
+        [SerializeField]
+        private string photoURL = "";
+        [SerializeField]
+        private string pushToken = "";
 
         public string UniqueId { get { return uniqueId; } }
-
-        public string DisplayName { get { return displayName; } }
-
-        public string ChannelId { get { return channelId; } }
-
+        public string DisplayName { get { return displayName; } }        
         public string Email { get { return email; } }
+        public string PhotoURL { get { return photoURL; } }
+        public string PushToken { get { return pushToken; } }
     }
 }
