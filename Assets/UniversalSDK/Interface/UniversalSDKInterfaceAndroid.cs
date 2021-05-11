@@ -46,15 +46,13 @@ namespace Universal.UniversalSDK
                 universalSdkWrapper.Call("login", param);
         }
 
-        public static void Logout(string identifier,
-                                  LoginType loginType)
+        public static void Logout(string identifier)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            object[] param = new object[2];
-            param[0] = identifier;
-            param[1] = (int)loginType;
+            object[] param = new object[1];
+            param[0] = identifier;            
 
             if (universalSdkWrapper != null)
                 universalSdkWrapper.Call("logout", param);

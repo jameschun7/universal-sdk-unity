@@ -47,10 +47,9 @@ namespace Universal.UniversalSDK
             UniversalAPI.Login(loginType, serviceType, action);
         }
 
-        public void Logout(LoginType loginType,
-                           Action<Result<UniversalUnit>> action)
+        public void Logout(Action<Result<UniversalUnit>> action)
         {
-            UniversalAPI.Logout(loginType, action);
+            UniversalAPI.Logout(action);
         }
 
         public void InAppPurchase(string pid,                                  

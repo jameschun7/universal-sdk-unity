@@ -25,11 +25,10 @@ namespace Universal.UniversalSDK
             NativeInterface.Login(identifier, loginType, serviceType);
         }
 
-        public static void Logout(LoginType loginType,
-                                  Action<Result<UniversalUnit>> action)
+        public static void Logout(Action<Result<UniversalUnit>> action)
         {
             var identifier = AddAction(FlattenAction.JsonFlatten<UniversalUnit>(action));
-            NativeInterface.Logout(identifier, loginType);
+            NativeInterface.Logout(identifier);
         }
 
         public static void ImageBanner(string ratioWidth,

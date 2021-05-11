@@ -4,9 +4,9 @@ allprojects {
     buildscript {
         repositories {**ARTIFACTORYREPOSITORY**
             google()
-            jcenter()
+            mavenCentral()
             maven {
-                url "https://dl.bintray.com/james-chun-dev/universal-sdk"
+                url "https://repo1.maven.org/maven2/"
             }
         }
 
@@ -24,9 +24,9 @@ allprojects {
 
     repositories {**ARTIFACTORYREPOSITORY**
         google()
-        jcenter()
+        mavenCentral()
         maven {
-            url "https://dl.bintray.com/james-chun-dev/universal-sdk"
+            url "https://repo1.maven.org/maven2/"
         }
         flatDir {
             dirs "${project(':unityLibrary').projectDir}/libs"
