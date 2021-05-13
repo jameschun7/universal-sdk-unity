@@ -62,12 +62,11 @@ void universal_sdk_login(const char* identifier,
                                     serviceType:serviceType];
 }
 
-UNIVERSAL_SDK_EXTERNC void universal_sdk_logout(const char* identifier, int loginType);
-void universal_sdk_logout(const char* identifier, int loginType)
+UNIVERSAL_SDK_EXTERNC void universal_sdk_logout(const char* identifier);
+void universal_sdk_logout(const char* identifier)
 {
     NSString *nsIdentifier = UniversalSDKMakeNSString(identifier);
-    [[UniversalSDKWrapper sharedInstance] logout:nsIdentifier
-                                       loginType:loginType];
+    [[UniversalSDKWrapper sharedInstance] logout:nsIdentifier];
 }
 
 UNIVERSAL_SDK_EXTERNC void universal_sdk_inAppPurchase(const char* identifier,

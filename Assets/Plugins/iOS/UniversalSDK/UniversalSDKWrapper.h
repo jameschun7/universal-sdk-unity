@@ -18,8 +18,7 @@
          type:(int)loginType
   serviceType:(int)accountServiceType;
 
-- (void)logout:(NSString *)identifier
-     loginType:(int)loginType;
+- (void)logout:(NSString *)identifier;
 
 - (void)purchaseLaunch:(NSString *)identifier
                    pid:(NSString *)pid;

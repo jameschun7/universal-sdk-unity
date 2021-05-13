@@ -70,11 +70,9 @@
     }];    
 }
 
-- (void) logout:(NSString *)identifier
-      loginType:(int)loginType
+- (void) logout:(NSString *)identifier      
 {
-    [[UniversalApiClient getInstance] logout:loginType
-                                  completion:^(NSString * _Nullable result, NSError * _Nullable error)
+    [[UniversalApiClient getInstance] logout:^(NSString * _Nullable result, NSError * _Nullable error)
     {
         if(error){
             UniversalSDKCallbackPayload *payload = [UniversalSDKCallbackPayload callbackMessage:identifier value:[self wrapError:error]];

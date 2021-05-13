@@ -44,14 +44,13 @@ namespace Universal.UniversalSDK
         }
 
         [DllImport("__Internal")]
-        private static extern void universal_sdk_logout(string identifier,
-                                                        int loginType);
-        public static void Logout(string identifier, LoginType loginType)
+        private static extern void universal_sdk_logout(string identifier);
+        public static void Logout(string identifier)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            universal_sdk_logout(identifier, (int)loginType);
+            universal_sdk_logout(identifier);
         }
 
         [DllImport("__Internal")]
