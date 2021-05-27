@@ -41,15 +41,15 @@ namespace Universal.UniversalSDK
         }
 
         public void Login(LoginType loginType,
-                          AccountServiceType serviceType,
                           Action<Result<LoginResult>> action)
         {
-            UniversalAPI.Login(loginType, serviceType, action);
+            UniversalAPI.Login(loginType, action);
         }
 
-        public void Logout(Action<Result<UniversalUnit>> action)
+        public void Logout(LoginType loginType,
+                           Action<Result<UniversalUnit>> action)
         {
-            UniversalAPI.Logout(action);
+            UniversalAPI.Logout(loginType, action);
         }
 
         public void InAppPurchase(string pid,                                  

@@ -31,28 +31,28 @@ namespace Universal.UniversalSDK
         }
 
         public static void Login(string identifier,
-                                 LoginType loginType,
-                                 AccountServiceType serviceType)
+                                 LoginType loginType)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            object[] param = new object[3];
+            object[] param = new object[2];
             param[0] = identifier;
             param[1] = (int)loginType;
-            param[2] = (int)serviceType;
 
             if (universalSdkWrapper != null)
                 universalSdkWrapper.Call("login", param);
         }
 
-        public static void Logout(string identifier)
+        public static void Logout(string identifier,
+                                  LoginType loginType)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            object[] param = new object[1];
-            param[0] = identifier;            
+            object[] param = new object[2];
+            param[0] = identifier;
+            param[1] = (int)loginType;
 
             if (universalSdkWrapper != null)
                 universalSdkWrapper.Call("logout", param);

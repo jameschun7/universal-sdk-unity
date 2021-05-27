@@ -6,7 +6,7 @@ allprojects {
             google()
             mavenCentral()
             maven {
-                url "https://repo1.maven.org/maven2/"
+                url "https://s01.oss.sonatype.org/content/repositories/releases/"
             }
         }
 
@@ -26,7 +26,7 @@ allprojects {
         google()
         mavenCentral()
         maven {
-            url "https://repo1.maven.org/maven2/"
+            url "https://s01.oss.sonatype.org/content/repositories/releases/"
         }
         flatDir {
             dirs "${project(':unityLibrary').projectDir}/libs"

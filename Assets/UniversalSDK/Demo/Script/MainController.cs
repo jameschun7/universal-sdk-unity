@@ -31,79 +31,11 @@ public class MainController : MonoBehaviour
         LoginResult result = UserInfoManager.Instance.loginResult;
         StartCoroutine(UpdateProfile(result.UserProfile));
         UpdateRawSection(result);
-    }
-
-    public void OnLinkWithGoogle()
-    {
-        UniversalSDK.Ins.Login(LoginType.GOOGLE,
-            AccountServiceType.ACCOUNT_LINK, result =>
-            {
-                result.Match(
-                    value =>
-                    {
-                        UpdateRawSection(value);
-                    },
-                    error =>
-                    {
-                        UpdateRawSection(error);
-                    });
-            });
-    }
-
-    public void OnLinkWithFacebook()
-    {
-        UniversalSDK.Ins.Login(LoginType.FACEBOOK,
-            AccountServiceType.ACCOUNT_LINK, result =>
-            {
-                result.Match(
-                    value =>
-                    {
-                        UpdateRawSection(value);
-                    },
-                    error =>
-                    {
-                        UpdateRawSection(error);
-                    });
-            });
-    }
-
-    public void OnUnlinkWithGoogle()
-    {
-        UniversalSDK.Ins.Login(LoginType.GOOGLE,
-            AccountServiceType.ACCOUNT_UNLINK, result =>
-            {
-                result.Match(
-                    value =>
-                    {
-                        UpdateRawSection(value);
-                    },
-                    error =>
-                    {
-                        UpdateRawSection(error);
-                    });
-            });
-    }
-
-    public void OnUnlinkWithFacebook()
-    {
-        UniversalSDK.Ins.Login(LoginType.FACEBOOK,
-            AccountServiceType.ACCOUNT_UNLINK, result =>
-            {
-                result.Match(
-                    value =>
-                    {
-                        UpdateRawSection(value);
-                    },
-                    error =>
-                    {
-                        UpdateRawSection(error);
-                    });
-            });
-    }
+    }    
 
     public void OnClickLogout()
     {
-        UniversalSDK.Ins.Logout(result =>
+        UniversalSDK.Ins.Logout(LoginType.GOOGLE, result =>
         {
             result.Match(
                 value =>
@@ -221,7 +153,7 @@ public class MainController : MonoBehaviour
             yield return null;
         }        
         displayNameText.text = profile.DisplayName;
-        uniqueIdText.text = profile.UniqueId;
+        uniqueIdText.text = profile.UserID;
         emailText.text = profile.Email;
     }
 }

@@ -7,7 +7,11 @@ namespace Universal.UniversalSDK
     public class UserProfile
     {
         [SerializeField]
-        private string uniqueId = "";
+        private string userID = "";
+        [SerializeField]
+        private string idToken = "";
+        [SerializeField]
+        private string accessToken = "";
         [SerializeField]
         private string displayName = "";        
         [SerializeField]
@@ -17,7 +21,9 @@ namespace Universal.UniversalSDK
         [SerializeField]
         private string pushToken = "";
 
-        public string UniqueId { get { return uniqueId; } }
+        public string UserID { get { return userID; } }
+        public string IdToken { get { return idToken; } }
+        public string AccessToken { get { return accessToken; } }
         public string DisplayName { get { return displayName; } }        
         public string Email { get { return email; } }
         public string PhotoURL { get { return photoURL; } }

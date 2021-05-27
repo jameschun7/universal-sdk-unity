@@ -39,7 +39,7 @@ public class LoginController : MonoBehaviour
     public void OnClickGoogleLogin()
     {
         UniversalSDK.Ins.Login(LoginType.GOOGLE,
-            AccountServiceType.ACCOUNT_LOGIN, result =>
+            result =>
             {
                 result.Match(
                     value =>
@@ -58,7 +58,7 @@ public class LoginController : MonoBehaviour
     public void OnClickFacebookLogin()
     {
         UniversalSDK.Ins.Login(LoginType.FACEBOOK,
-            AccountServiceType.ACCOUNT_LOGIN, result =>
+            result =>
             {
                 result.Match(
                     value =>
@@ -73,30 +73,11 @@ public class LoginController : MonoBehaviour
                         popup_panel.SetActive(true);
                     });
             });
-    }
-    public void OnClickGuestLogin()
-    {
-        UniversalSDK.Ins.Login(LoginType.GUEST,
-            AccountServiceType.ACCOUNT_LOGIN, result =>
-            {
-                result.Match(
-                    value =>
-                    {
-                        UserInfoManager.Instance.loginResult = value;
-                        SceneManager.LoadSceneAsync("Main");
-                    },
-                    error =>
-                    {
-                        titleText.text = error.Code.ToString();
-                        messageText.text = error.Message;
-                        popup_panel.SetActive(true);
-                    });
-            });
-    }
+    }    
     public void OnClickAppleLogin()
     {
         UniversalSDK.Ins.Login(LoginType.APPLE,
-            AccountServiceType.ACCOUNT_LOGIN, result =>
+            result =>
             {
                 result.Match(
                     value =>

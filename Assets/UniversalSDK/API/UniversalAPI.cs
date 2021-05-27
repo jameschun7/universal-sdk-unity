@@ -16,19 +16,19 @@ namespace Universal.UniversalSDK
             NativeInterface.SetupSDK(identifier, string.Join(" ", list));
         }
 
-        public static void Login(LoginType loginType,
-                                 AccountServiceType serviceType,
+        public static void Login(LoginType loginType,                                 
                                  Action<Result<LoginResult>> action)
         {
             var identifier = AddAction(FlattenAction.JsonFlatten<LoginResult>(action));
 
-            NativeInterface.Login(identifier, loginType, serviceType);
+            NativeInterface.Login(identifier, loginType);
         }
 
-        public static void Logout(Action<Result<UniversalUnit>> action)
+        public static void Logout(LoginType loginType,
+                                  Action<Result<UniversalUnit>> action)
         {
             var identifier = AddAction(FlattenAction.JsonFlatten<UniversalUnit>(action));
-            NativeInterface.Logout(identifier);
+            NativeInterface.Logout(identifier, loginType);
         }
 
         public static void ImageBanner(string ratioWidth,
