@@ -29,16 +29,7 @@ namespace Universal.UniversalSDK
         {
             var identifier = AddAction(FlattenAction.JsonFlatten<UniversalUnit>(action));
             NativeInterface.Logout(identifier, loginType);
-        }
-
-        public static void ImageBanner(string ratioWidth,
-                                       string ratioHeight,
-                                       string imageUrl,
-                                       Action<Result<UniversalUnit>> action)
-        {
-            var identifier = AddAction(FlattenAction.JsonFlatten<UniversalUnit>(action));
-            NativeInterface.ImageBanner(identifier, ratioWidth, ratioHeight, imageUrl);
-        }
+        }        
 
         public static void InAppPurchase(string pid,                                         
                                          Action<Result<PurchaseData>> action)

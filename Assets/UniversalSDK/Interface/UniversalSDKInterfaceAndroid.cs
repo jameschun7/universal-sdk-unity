@@ -70,25 +70,7 @@ namespace Universal.UniversalSDK
 
             if (universalSdkWrapper != null)
                 universalSdkWrapper.Call("purchaseLaunch", param);
-        }
-
-        public static void ImageBanner(string identifier,
-                                       string ratioWidth,
-                                       string ratioHeight,
-                                       string imageUrl)
-        {
-            if (!Application.isPlaying) { return; }
-            if (IsInvalidRuntime(identifier)) { return; }
-
-            object[] param = new object[4];
-            param[0] = identifier;
-            param[1] = ratioWidth;
-            param[2] = ratioHeight;
-            param[3] = imageUrl;
-
-            if (universalSdkWrapper != null)
-                universalSdkWrapper.Call("imageBanner", param);
-        }       
+        }           
 
         public static void OpenCustomTabView(string identifier,
                                              string url)

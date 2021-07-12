@@ -77,22 +77,7 @@ public class MainController : MonoBehaviour
                     UpdateRawSection(error);
                 });
         });
-    }
-    public void OnClickImageBanner()
-    {
-        UniversalSDK.Ins.ImageBanner("9", "16", imgUrl, result =>
-        {
-            result.Match(
-                value =>
-                {
-                    UpdateRawSection(value);
-                },
-                error =>
-                {
-                    UpdateRawSection(error);
-                });
-        });
-    }
+    }    
 
     public void OnClickOpenCustomTabView()
     {

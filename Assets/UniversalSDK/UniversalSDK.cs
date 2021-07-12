@@ -57,20 +57,12 @@ namespace Universal.UniversalSDK
         {
             UniversalAPI.InAppPurchase(pid, action);
         }
-
-        public void ImageBanner(string ratioWidth,
-                                string ratioHeight,
-                                string imageUrl,
-                                Action<Result<UniversalUnit>> action)
-        {
-            UniversalAPI.ImageBanner(ratioWidth, ratioHeight, imageUrl, action);
-        }
-
+        
         public void OpenCustomTabView(string url,
                                       Action<Result<UniversalUnit>> action)
         {
             UniversalAPI.OpenCustomTabView(url, action);
-        }
+        }        
 
         public void OnApiOk(string result)
         {

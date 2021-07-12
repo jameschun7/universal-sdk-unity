@@ -1,11 +1,9 @@
 platform :ios, '10.0'
 
-target 'Unity-iPhone' do
-    use_frameworks!
-    pod 'UniversalSDK', :git => 'https://github.com/jameschun7/universal-sdk-ios-objc.git'
-end
+use_frameworks!
 
 target 'UnityFramework' do
-    use_frameworks!
-    pod 'UniversalSDK', :git => 'https://github.com/jameschun7/universal-sdk-ios-objc.git'
+    pod 'UniversalSDK', :git => 'https://jameschun7@github.com/jameschun7/universal-sdk-ios-objc.git'
+end
+target 'Unity-iPhone' do   
 end
