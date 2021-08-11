@@ -8,7 +8,7 @@ using Universal.UniversalSDK;
 
 public class MainController : MonoBehaviour
 {
-#if UNITY_ANDROID    
+#if UNITY_ANDROID || UNITY_EDITOR
     string productID_1 = "boxer_unity1000";
     string productID_2 = "boxer_unity2000";
 #elif UNITY_IOS    

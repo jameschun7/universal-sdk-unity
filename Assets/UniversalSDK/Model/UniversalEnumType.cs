@@ -5,30 +5,15 @@ namespace Universal.UniversalSDK
     {
         NONE,
         GOOGLE,
-        FACEBOOK,
-        GUEST,
+        FACEBOOK,        
         APPLE,
-    }
-
-    public enum AccountServiceType
-    {
-        NONE,
-        ACCOUNT_LOGIN,
-        ACCOUNT_LINK,
-        ACCOUNT_UNLINK,
     }
 
     public enum ApiResponseCode
     {
-        SUCCESS,
-        CANCEL,
-        NETWORK_ERROR,
-        SERVER_ERROR,
-        AUTHENTICATION_AGENT_ERROR,
-        ALREADY_LOGGED_IN,
-        ALREADY_ACCOUNT_USE,
-        BLOCK_IP_CHECK,
-        SERVICE_MAINTENANCE,
+        SUCCESS = 1000,
+        CANCEL,        
+        AUTHENTICATION_AGENT_ERROR,        
         INTERNAL_ERROR,
         PURCHASE_ERROR,
     }

@@ -13,7 +13,7 @@ public class LoginController : MonoBehaviour
 
     void Start()
     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID || UNITY_EDITOR
         var scopes = new string[] { "boxer_unity1000", "boxer_unity2000" };
 #elif UNITY_IOS
         var scopes = new string[] { "com.gamepub.unity.inapp1200", "com.gamepub.unity.inapp2500" };        

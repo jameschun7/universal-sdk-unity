@@ -31,26 +31,26 @@ namespace Universal.UniversalSDK
 
         [DllImport("__Internal")]
         private static extern void universal_sdk_login(string identifier,
-                                                       int loginType,
-                                                       int serviceType);
+                                                       int loginType);
         public static void Login(string identifier,
-                                 LoginType loginType,
-                                 AccountServiceType serviceType)
+                                 LoginType loginType)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            universal_sdk_login(identifier, (int)loginType, (int)serviceType);
+            universal_sdk_login(identifier, (int)loginType);
         }
 
         [DllImport("__Internal")]
-        private static extern void universal_sdk_logout(string identifier);
-        public static void Logout(string identifier)
+        private static extern void universal_sdk_logout(string identifier,
+                                                        int loginType);
+        public static void Logout(string identifier,
+                                  LoginType loginType)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            universal_sdk_logout(identifier);
+            universal_sdk_logout(identifier, (int)loginType);
         }
 
         [DllImport("__Internal")]
