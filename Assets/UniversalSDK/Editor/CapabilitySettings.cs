@@ -20,10 +20,7 @@ namespace Universal.UniversalSDK.Editor
             string projectPath = PBXProject.GetPBXProjectPath(pathToBuiltProject);
             var project = new PBXProject();
             project.ReadFromFile(projectPath);
-            string targetGuid = project.GetUnityMainTargetGuid();
-
-            project.AddFileToBuild(targetGuid, project.AddFile("GoogleService-Info.plist", "GoogleService-Info.plist"));
-            project.WriteToFile(projectPath);
+            string targetGuid = project.GetUnityMainTargetGuid();            
 
             project.AddFrameworkToProject(targetGuid, "StoreKit.framework", false);
             File.WriteAllText(projectPath, project.WriteToString());
@@ -31,7 +28,8 @@ namespace Universal.UniversalSDK.Editor
             var manager = new ProjectCapabilityManager(projectPath, "Entitlements.entitlements", null, project.GetUnityMainTargetGuid());
             manager.AddInAppPurchase();
             manager.AddPushNotifications(true);
-            manager.AddSignInWithApple();
+            if(UniversalSDKSettings.GetOrCreateSettings().UseAppleLogin)
+                manager.AddSignInWithApple();
             manager.WriteToFile();            
         }
     }

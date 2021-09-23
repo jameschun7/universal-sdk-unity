@@ -15,34 +15,24 @@ namespace Universal.UniversalSDK.Editor
             if (target != BuildTarget.iOS)
             {
                 return;
-            }
+            }                        
             
-            //-------
-            string googlePlistPath = Application.dataPath + "/Plugins/iOS/GoogleService-Info.plist";
-            File.Copy(googlePlistPath, pathToBuiltProject + "/GoogleService-Info.plist");
-
-            //-------
-            PlistDocument googlePlist = new PlistDocument();
-            googlePlist.ReadFromString(File.ReadAllText(googlePlistPath));
-            PlistElementDict googleDict = googlePlist.root;
-
-            //-------
             string plistPath = pathToBuiltProject + "/Info.plist";
             PlistDocument plist = new PlistDocument();
             plist.ReadFromString(File.ReadAllText(plistPath));
 
-            PlistElementDict rootDict = plist.root;
-            //-------
+            PlistElementDict rootDict = plist.root;            
 
-            SetupURLScheme(rootDict, googleDict);
+            SetupURLScheme(rootDict);
             SetupQueriesSchemes(rootDict);
             SetupFacebookSetting(rootDict);
+            SetupGoogleSetting(rootDict);
 
             File.WriteAllText(plistPath, plist.WriteToString());
                         
         }
 
-        static void SetupURLScheme(PlistElementDict rootDict, PlistElementDict googleDict)
+        static void SetupURLScheme(PlistElementDict rootDict)
         {
             PlistElementArray array = GetOrCreateArray(rootDict, "CFBundleURLTypes");
             var lineURLScheme = array.AddDict();
@@ -51,7 +41,7 @@ namespace Universal.UniversalSDK.Editor
             var schemes = lineURLScheme.CreateArray("CFBundleURLSchemes");
 
             if (UniversalSDKSettings.GetOrCreateSettings().UseGoogleLogin)
-                schemes.AddString(googleDict["REVERSED_CLIENT_ID"].AsString());
+                schemes.AddString(UniversalSDKSettings.GetOrCreateSettings().ReversedClientID);
 
             if (UniversalSDKSettings.GetOrCreateSettings().UseFacebookLogin)
                 schemes.AddString("fb"+ UniversalSDKSettings.GetOrCreateSettings().FacebookAppID);

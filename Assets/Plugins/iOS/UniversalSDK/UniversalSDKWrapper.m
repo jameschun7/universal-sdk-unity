@@ -46,17 +46,12 @@
             [payload sendMessageOK];
         }
     }];
-    
-    [[WebviewController GetInstance] InitializeWithParentUIView:UnityGetGLViewController().view
-                                                    pubDelegate:nil];
 }
 
 - (void) login:(NSString *)identifier
           type:(int)loginType
-   serviceType:(int)accountServiceType
 {
     [[UniversalApiClient getInstance]login:loginType
-                               serviceType:accountServiceType
                             viewController:UnityGetGLViewController()
                                 completion:^(NSString * _Nullable result, NSError * _Nullable error)
     {
@@ -98,16 +93,6 @@
             [payload sendMessageOK];
         }
     }];
-}
-
-- (void) imageBanner:(NSString *)identifier
-          ratioWidth:(NSString *)ratioWidth
-         ratioHeight:(NSString *)ratioHeight
-            imageUrl:(NSString *)imageUrl
-{
-    [[UniversalApiClient getInstance] imageBanner:imageUrl
-                                       ratioWidth:ratioWidth
-                                      ratioHeight:ratioHeight];
 }
 
 - (void) openSafariView:(NSString *)identifier

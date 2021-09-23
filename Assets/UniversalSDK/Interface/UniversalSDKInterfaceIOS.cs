@@ -42,15 +42,13 @@ namespace Universal.UniversalSDK
         }
 
         [DllImport("__Internal")]
-        private static extern void universal_sdk_logout(string identifier,
-                                                        int loginType);
-        public static void Logout(string identifier,
-                                  LoginType loginType)
+        private static extern void universal_sdk_logout(string identifier);
+        public static void Logout(string identifier)
         {
             if (!Application.isPlaying) { return; }
             if (IsInvalidRuntime(identifier)) { return; }
 
-            universal_sdk_logout(identifier, (int)loginType);
+            universal_sdk_logout(identifier);
         }
 
         [DllImport("__Internal")]
@@ -63,23 +61,7 @@ namespace Universal.UniversalSDK
             if (IsInvalidRuntime(identifier)) { return; }
 
             universal_sdk_inAppPurchase(identifier, pid);
-        }        
-
-        [DllImport("__Internal")]
-        private static extern void universal_sdk_imageBanner(string identifier,
-                                                             string ratioWidth,
-                                                             string ratioHeight,
-                                                             string imageUrl);
-        public static void ImageBanner(string identifier,
-                                       string ratioWidth,
-                                       string ratioHeight,
-                                       string imageUrl)
-        {
-            if (!Application.isPlaying) { return; }
-            if (IsInvalidRuntime(identifier)) { return; }
-
-            universal_sdk_imageBanner(identifier, ratioWidth, ratioHeight, imageUrl);
-        }        
+        }              
         
         [DllImport("__Internal")]
         private static extern void universal_sdk_openSafariView(string identifier,

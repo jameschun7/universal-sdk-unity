@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f32eef460134eafbcc16fc1badd44b, type: 3}
   m_Name: UniversalSDKSettings
   m_EditorClassIdentifier: 
-  iOSDependencyManager: CocoaPods
+  iOSDependencyManager: None
   appleLogin: 1
   facebookLogin: 1
   googleLogin: 1
   facebookAppID: 2925534737733374
-  googleClientID: 123
-  reversedClientID: 321
+  googleClientID: 178190980840-t8dehbirk7r8aq55odbe3v4fuj34d7sg.apps.googleusercontent.com
+  reversedClientID: com.googleusercontent.apps.178190980840-t8dehbirk7r8aq55odbe3v4fuj34d7sg

@@ -15,18 +15,12 @@
             list:(NSString *)list;
 
 - (void)login:(NSString *)identifier
-         type:(int)loginType
-  serviceType:(int)accountServiceType;
+         type:(int)loginType;
 
 - (void)logout:(NSString *)identifier;
 
 - (void)purchaseLaunch:(NSString *)identifier
                    pid:(NSString *)pid;
-
-- (void)imageBanner:(NSString *)identifier
-         ratioWidth:(NSString *)ratioWidth
-        ratioHeight:(NSString *)ratioHeight
-           imageUrl:(NSString *)imageUrl;
 
 - (void)openSafariView:(NSString *)identifier
                    url:(NSString *)url;

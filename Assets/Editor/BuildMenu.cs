@@ -123,8 +123,10 @@ public class BuildMenu : ScriptableObject
         PlayerSettings.SetApplicationIdentifier(BuildTargetGroup.iOS, bundleID);
         //PlayerSettings.bundleVersion = "";
         //PlayerSettings.iOS.buildNumber = "";
-        PlayerSettings.iOS.appleEnableAutomaticSigning = true;
+        PlayerSettings.iOS.appleEnableAutomaticSigning = false;
         PlayerSettings.iOS.appleDeveloperTeamID = "PRPC4C837N";
+        PlayerSettings.iOS.iOSManualProvisioningProfileID = "1b218b87-4ae6-4b7e-b746-4fb6f78f4ecc";
+        PlayerSettings.iOS.iOSManualProvisioningProfileType = ProvisioningProfileType.Development;
     }
 
     static string PerformAndroidBuild(string output, string define, bool isDev)

@@ -35,7 +35,7 @@ public class MainController : MonoBehaviour
 
     public void OnClickLogout()
     {
-        UniversalSDK.Ins.Logout(LoginType.GOOGLE, result =>
+        UniversalSDK.Ins.Logout(result =>
         {
             result.Match(
                 value =>

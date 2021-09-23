@@ -58,8 +58,7 @@ void universal_sdk_login(const char* identifier,
 {
     NSString *nsIdentifier = UniversalSDKMakeNSString(identifier);
     [[UniversalSDKWrapper sharedInstance] login:nsIdentifier
-                                           type:loginType
-                                    serviceType:serviceType];
+                                           type:loginType];
 }
 
 UNIVERSAL_SDK_EXTERNC void universal_sdk_logout(const char* identifier);
@@ -78,25 +77,6 @@ void universal_sdk_inAppPurchase(const char* identifier,
     NSString *nsPid = UniversalSDKMakeNSString(pid);
     [[UniversalSDKWrapper sharedInstance] purchaseLaunch:nsIdentifier
                                                      pid:nsPid];
-}
-
-UNIVERSAL_SDK_EXTERNC void universal_sdk_imageBanner(const char* identifier,
-                                                     const char* ratioWidth,
-                                                     const char* ratioHeight,
-                                                     const char* imageUrl);
-void universal_sdk_imageBanner(const char* identifier,
-                               const char* ratioWidth,
-                               const char* ratioHeight,
-                               const char* imageUrl)
-{
-    NSString *nsIdentifier = UniversalSDKMakeNSString(identifier);
-    NSString *nsRatioWidth = UniversalSDKMakeNSString(ratioWidth);
-    NSString *nsRatioHeight = UniversalSDKMakeNSString(ratioHeight);
-    NSString *nsImageUrl = UniversalSDKMakeNSString(imageUrl);
-    [[UniversalSDKWrapper sharedInstance] imageBanner:nsIdentifier
-                                           ratioWidth:nsRatioWidth
-                                          ratioHeight:nsRatioHeight
-                                             imageUrl:nsImageUrl];
 }
 
 UNIVERSAL_SDK_EXTERNC void universal_sdk_openSafariView(const char* identifier,
