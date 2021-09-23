@@ -15,4 +15,7 @@ MonoBehaviour:
   iOSDependencyManager: CocoaPods
   appleLogin: 1
   facebookLogin: 1
+  googleLogin: 1
   facebookAppID: 2925534737733374
+  googleClientID: 123
+  reversedClientID: 321

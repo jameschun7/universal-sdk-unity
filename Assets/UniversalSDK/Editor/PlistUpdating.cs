@@ -49,20 +49,34 @@ namespace Universal.UniversalSDK.Editor
             lineURLScheme.SetString("CFBundleTypeRole", "Editor");
             lineURLScheme.SetString("CFBundleURLName", "Client");
             var schemes = lineURLScheme.CreateArray("CFBundleURLSchemes");
-            schemes.AddString(googleDict["REVERSED_CLIENT_ID"].AsString());
-            schemes.AddString("fb"+ UniversalSDKSettings.GetOrCreateSettings().FacebookAppID);
+
+            if (UniversalSDKSettings.GetOrCreateSettings().UseGoogleLogin)
+                schemes.AddString(googleDict["REVERSED_CLIENT_ID"].AsString());
+
+            if (UniversalSDKSettings.GetOrCreateSettings().UseFacebookLogin)
+                schemes.AddString("fb"+ UniversalSDKSettings.GetOrCreateSettings().FacebookAppID);
         }
 
         static void SetupQueriesSchemes(PlistElementDict rootDict)
         {
-            PlistElementArray array = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
-            array.AddString("fbapi");
-            array.AddString("fbauth2");
+            if (UniversalSDKSettings.GetOrCreateSettings().UseFacebookLogin)
+            {
+                PlistElementArray array = GetOrCreateArray(rootDict, "LSApplicationQueriesSchemes");
+                array.AddString("fbapi");
+                array.AddString("fbauth2");
+            }
+        }
+
+        static void SetupGoogleSetting(PlistElementDict rootDict)
+        {
+            if (UniversalSDKSettings.GetOrCreateSettings().UseGoogleLogin)
+                rootDict.SetString("GoogleClientID", UniversalSDKSettings.GetOrCreateSettings().GoogleClientID);            
         }
 
         static void SetupFacebookSetting(PlistElementDict rootDict)
         {
-            rootDict.SetString("FacebookAppID", UniversalSDKSettings.GetOrCreateSettings().FacebookAppID);
+            if (UniversalSDKSettings.GetOrCreateSettings().UseFacebookLogin)
+                rootDict.SetString("FacebookAppID", UniversalSDKSettings.GetOrCreateSettings().FacebookAppID);
         }
 
         static PlistElementArray GetOrCreateArray(PlistElementDict dict, string key)

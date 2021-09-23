@@ -10,7 +10,7 @@ namespace Universal.UniversalSDK.Editor
     {
         const string assetPath = "Assets/Editor/UniversalSDK/UniversalSDKSettings.asset";
 
-        internal static string[] dependencyManagerOptions = new string[] { "CocoaPods" };
+        internal static string[] dependencyManagerOptions = new string[] { "None", "CocoaPods" };
 
         [SerializeField]
         private string iOSDependencyManager;
@@ -19,7 +19,13 @@ namespace Universal.UniversalSDK.Editor
         [SerializeField]
         private bool facebookLogin;
         [SerializeField]
+        private bool googleLogin;
+        [SerializeField]
         private string facebookAppID;
+        [SerializeField]
+        private string googleClientID;
+        [SerializeField]
+        private string reversedClientID;
 
         internal static int DependencySelectedIndex(string selected)
         {
@@ -28,8 +34,11 @@ namespace Universal.UniversalSDK.Editor
 
         internal bool UseCocoaPods { get { return iOSDependencyManager.Equals("CocoaPods"); } }
         internal string FacebookAppID { get { return facebookAppID; } }
+        internal string GoogleClientID { get { return googleClientID; } }
+        internal string ReversedClientID { get { return reversedClientID; } }
         internal bool UseAppleLogin { get { return appleLogin; } }
         internal bool UseFacebookLogin { get { return facebookLogin; } }
+        internal bool UseGoogleLogin { get { return googleLogin; } }
 
         internal static UniversalSDKSettings GetOrCreateSettings()
         {
@@ -40,6 +49,7 @@ namespace Universal.UniversalSDK.Editor
                 settings.iOSDependencyManager = "CocoaPods";
                 settings.appleLogin = false;
                 settings.facebookLogin = false;
+                settings.googleLogin = false;
 
                 Directory.CreateDirectory("Assets/Editor/UniversalSDK/");
 
@@ -92,8 +102,17 @@ namespace Universal.UniversalSDK.Editor
             var propertyFacebookLogin = settings.FindProperty("facebookLogin");
             var enableFacebookLogin = propertyFacebookLogin.boolValue;
 
+            var propertyGoogleLogin = settings.FindProperty("googleLogin");
+            var enableGoogleLogin = propertyGoogleLogin.boolValue;
+
             var propertyFacebookAppId = settings.FindProperty("facebookAppID");
             var facebookAppId = propertyFacebookAppId.stringValue;
+
+            var propertyGoogleClientId = settings.FindProperty("googleClientID");
+            var googleClientId = propertyGoogleClientId.stringValue;
+
+            var propertyReversedClientId = settings.FindProperty("reversedClientID");
+            var reversedClientId = propertyReversedClientId.stringValue;
 
             selected = EditorGUILayout.Popup("iOS Dependency Manager", selected, UniversalSDKSettings.dependencyManagerOptions);
             enableAppleLogin = EditorGUILayout.Toggle("Apple Login Enable", enableAppleLogin);
@@ -105,6 +124,12 @@ namespace Universal.UniversalSDK.Editor
             facebookAppId = EditorGUILayout.TextField("Facebook App ID", facebookAppId);
             EditorGUILayout.EndToggleGroup();
 
+            GUILayout.Label("Google", GUILayout.Width(200), GUILayout.Height(30));
+            enableGoogleLogin = EditorGUILayout.BeginToggleGroup("Google Login Enable", enableGoogleLogin);
+            googleClientId = EditorGUILayout.TextField("Google Client ID", googleClientId);
+            reversedClientId = EditorGUILayout.TextField("REVERSED Client ID", reversedClientId);
+            EditorGUILayout.EndToggleGroup();
+
             if (selected < 0)
             {
                 selected = 0;
@@ -112,7 +137,10 @@ namespace Universal.UniversalSDK.Editor
             property.stringValue = UniversalSDKSettings.dependencyManagerOptions[selected];
             propertyAppleLogin.boolValue = enableAppleLogin;
             propertyFacebookLogin.boolValue = enableFacebookLogin;
+            propertyGoogleLogin.boolValue = enableGoogleLogin;
             propertyFacebookAppId.stringValue = facebookAppId;
+            propertyGoogleClientId.stringValue = googleClientId;
+            propertyReversedClientId.stringValue = reversedClientId;
 
             if (EditorGUI.EndChangeCheck())
             {
