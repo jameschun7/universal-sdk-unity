@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<dependencies>    
-    <androidPackages>
-        <androidPackage spec="com.github.coolishbee:universal-sdk-android:3.0.9"/>        
-        <androidPackage spec="com.google.code.gson:gson:2.8.9"/>
-    </androidPackages>
-</dependencies>
