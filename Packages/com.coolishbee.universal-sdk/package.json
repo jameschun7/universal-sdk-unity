@@ -1,8 +1,13 @@
 {
-  "name": "io.universal.sdk",
+  "name": "com.coolishbee.universal-sdk",
   "displayName": "Universal SDK",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "unity": "2019.4",
+  "author": {
+      "name": "James Cheon",
+      "email": "chc3484@gmail.com",
+      "url": "https://github.com/coolishbee"
+  },
   "description": "The Universal SDK for Unity provides a modern way of implementing Social Login APIs. The features included in this SDK will help you develop a Unity game with an engaging and personalized user experience./nNo need to import any third party (Google, Facebook, Apple). All included.",
   "type": "library",
   "samples": [
